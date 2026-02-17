@@ -84,7 +84,6 @@ var restoreBackups = (function(){
     restoreBackups.init = function(ctx){
         context = ctx;
 
-        projectName = fileUtils.getProjectName();
         logFn = context.hook === "before_plugin_uninstall" ? logger.log : logger.verbose;
 
         settings = fileUtils.getSettings();
@@ -100,6 +99,7 @@ var restoreBackups = (function(){
         });
         _.each(platforms, function (platform, index) {
             platform = platform.trim().toLowerCase();
+            projectName = fileUtils.getProjectName(platform);
             try{
                 restorePlatformBackups(platform);
                 if(index === platforms.length - 1){

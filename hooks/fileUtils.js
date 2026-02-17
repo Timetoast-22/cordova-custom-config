@@ -60,7 +60,13 @@ var fileUtils = (function(){
      * Used to get the name of the application from the xcodeCordovaProj directory path.
      * The xcodeCordovaProj directory path is defined in the locations property of the Cordova-iOS platform's API.
      */
-    fileUtils.getProjectName = function(){
+    fileUtils.getProjectName = function(platform){
+        if(platform === "android"){
+            if(!configXmlData) {
+                fileUtils.getConfigXml();
+            }
+            return configXmlData.findtext('name');
+        }
         const projectRoot = context.opts.projectRoot;
         const platformPath = path.join(projectRoot, 'platforms', 'ios');
         const cordova_ios = require('cordova-ios');

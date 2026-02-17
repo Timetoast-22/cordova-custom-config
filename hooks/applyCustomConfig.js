@@ -1119,7 +1119,6 @@ var applyCustomConfig = (function(){
         plugindir = path.join(cwd, 'plugins', context.opts.plugin.id);
 
         configXml = fileUtils.getConfigXml();
-        projectName = fileUtils.getProjectName();
         settings = fileUtils.getSettings();
         var runHook = settings.hook ? settings.hook : defaultHook;
 
@@ -1131,6 +1130,7 @@ var applyCustomConfig = (function(){
         // go through each of the context platforms
         _.each(context.opts.platforms, function (platform, index) {
             platform = platform.trim().toLowerCase();
+            projectName = fileUtils.getProjectName(platform);
             try{
                 updatePlatformConfig(platform);
                 if(index === context.opts.platforms.length - 1){
